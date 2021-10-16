@@ -29,14 +29,16 @@ pip install -r requirements.txt
 ### 1. Archivos:
 
 -**resp.py**: Contiene la clase RespFile que saca la información relevante del archivo resp de todas las actualizaciones que se han hecho y las guarda en un diccionario, ademas de ser la ejecución en una carpeta con varios archivos creara una carpeta pz_files.
+
 -**resp2pz.py**: Crea el archivo pz de la última actualización al archivo RESP que se pase por defecto.
+
 -**example.pz**: Archivo de txt que contiene la forma del achivo de respuesta .pz
 
 **TODOS ESTOS ARCHIVOS DEBEN ESTAR UBICADOS EN EL MISMO DIRECTORIO**
 
 ### 2. Carpetas:
 
--**pz_files**: Esta carpeta se creara automaticamente por la rutina y contendra una estructura de carpetas con año mes y dia, alli se almacenaran los archivos .pz en el dia que se ejecute el codigo.
+- **pz_files**: Esta carpeta se creara automaticamente por la rutina y contendra una estructura de carpetas con año mes y dia, alli se almacenaran los archivos .pz en el dia que se ejecute el codigo.
 
 
 ## 3. Instrucciones de uso:
