@@ -24,9 +24,9 @@ python3.7 -m virtualenv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-##2. Arquitectura
+## 2. Arquitectura
 
-###1. Archivos:
+### 1. Archivos:
 
 -**resp.py**: Contiene la clase RespFile que saca la información relevante del archivo resp de todas las actualizaciones que se han hecho y las guarda en un diccionario, ademas de ser la ejecución en una carpeta con varios archivos creara una carpeta pz_files.
 -**resp2pz.py**: Crea el archivo pz de la última actualización al archivo RESP que se pase por defecto.
@@ -34,18 +34,18 @@ pip install -r requirements.txt
 
 **TODOS ESTOS ARCHIVOS DEBEN ESTAR UBICADOS EN EL MISMO DIRECTORIO**
 
-###2. Carpetas:
+### 2. Carpetas:
 
 -**pz_files**: Esta carpeta se creara automaticamente por la rutina y contendra una estructura de carpetas con año mes y dia, alli se almacenaran los archivos .pz en el dia que se ejecute el codigo.
 
 
-##3. Instrucciones de uso:
+## 3. Instrucciones de uso:
 
 **IMPORTANTE**
 
 El script recibe 1 argumento este puede ser la ruta de una carpeta donde esten almacenados varios archivos o una ruta a un archivo en especifico.
 
-###1. Se ejecuta el script para una carpeta:
+### 1. Se ejecuta el script para una carpeta:
 
 El script se encuentra disponible para todos en el proc4, la ejecución se realiza de la siguiente manera.
 
@@ -74,7 +74,7 @@ source .bashrc
 ```
 De este manera solo escribiendo en la consola **resp_isola** se ejecutara el codigo y se actualizaran los archvos de respuesta en la ruta /opt/rutinas/Archivos_respuesta/pz_files/año/mes/dia
 
-###2. Se ejecuta el script para un archivo:
+### 2. Se ejecuta el script para un archivo:
 
 El script se encuentra disponible para todos en el proc4, la ejecución se realiza de la siguiente manera.
 ```bash
@@ -86,7 +86,7 @@ El archivo .pz se alojara en la misma ubicacion donde esta el archivo a trasnfor
 Para el resto de proc solamente se cambia la ruta de la ubicacion del archivo resp2pz.py
 
 
-##4. Autores
+## 4. Autores
 
 - Geronimo Valencia gvalenciah@sgc.gov.codigo
 - Daniel Siervo dsiervo@sgc.gov.co
