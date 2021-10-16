@@ -16,7 +16,7 @@ except IndexError:
 if os.path.isfile(pat_or_file):
 	resp = RespFile(pat_or_file)
 	# si la funcion devuelve True completo exitosamente
-	success = resp.resp2pz()
+	success = resp.resp2pz(pat_or_file)
 else:
 	
 	for f in os.listdir(pat_or_file):
