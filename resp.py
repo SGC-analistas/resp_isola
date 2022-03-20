@@ -13,6 +13,9 @@ class RespFile:
 			 \t RESP.network.station.location_code.channel  ejem --> RESP.CM.PTB.00.HHZ")
 			return None
 		self.station = l[2]
+		self.sensor = l[3]
+		if self.sensor == '':
+			self.sensor = '50'		
 		self.channel = l[4]
 		self.in_file = open(file_name).readlines()
 		
@@ -49,40 +52,38 @@ class RespFile:
 	# metodo que separa los bloques del archivo RespFile 
 	# en diccionarios contenidos en una lista
 	def separate_blocks(self):
-	  
-	  f = self.in_file	  
-	  
-	  for i in self.count_blocks():
-		  dic = {}
-		  zeroes = []
-		  poles = []
-		  for j in range(i,len(f)):
-			  if f[j][0:7] ==  "B052F22": dic["start date"] = f[j][25:-1]
-			  if f[j][0:7] ==  "B052F23": dic["end date"] = f[j][25:-1]
-			  if f[j][0:7] ==  "B053F07": dic["A0"] = f[j][51:-1].strip(" ")
-			  if f[j][0:7] ==  "B053F09": dic["num zeroes"] = f[j][51:-1].strip(" ")
-			  if f[j][0:7] ==  "B053F14": dic["num poles"] = f[j][51:-1].strip(" ")
-			  if f[j][0:10]=="B053F10-13": zeroes.append(f[j][16:43].strip())
-			  if f[j][0:10] ==  "B053F15-18": poles.append(f[j][16:43].strip())
-			  if f[j][0:7] ==  "B058F03":
-				  if f[j][51:-1].strip(" ") == "1":
-					  dic["seism sens"] = f[j+1][51:-1].strip(" ")
-				  elif f[j][51:-1].strip(" ") == "3":
-					  dic["digi sens"] = f[j+1][51:-1].strip(" ")
-			  if f[j][26:45] == "Channel Sensitivity":
-				  dic["zeroes"] = zeroes
-				  dic["poles"] = poles
-				  self.blocks_info.append(dic)
-				  break
-		  
-		  if "\n".join(f).find("Channel Sensitivity") == -1:
-			  try:
-			  	print ("\n\tEl archivo RESP %s no contiene el bloque Channel Sensitivity\n")%(self.file_name)
-			  	dic["zeroes"] = zeroes
-			  	dic["poles"] = poles
-			  	self.blocks_info.append(dic)
-			  except:
-				  False	
+		f = self.in_file
+		for i in self.count_blocks():
+			dic = {}
+			zeroes = []
+			poles = []
+			for j in range(i,len(f)):
+				if f[j][0:7] ==  "B052F22": dic["start date"] = f[j][25:-1]
+				if f[j][0:7] ==  "B052F23": dic["end date"] = f[j][25:-1]
+				if f[j][0:7] ==  "B053F07": dic["A0"] = f[j][51:-1].strip(" ")
+				if f[j][0:7] ==  "B053F09": dic["num zeroes"] = f[j][51:-1].strip(" ")
+				if f[j][0:7] ==  "B053F14": dic["num poles"] = f[j][51:-1].strip(" ")
+				if f[j][0:10]=="B053F10-13": zeroes.append(f[j][16:43].strip())
+				if f[j][0:10] ==  "B053F15-18": poles.append(f[j][16:43].strip())
+				if f[j][0:7] ==  "B058F03":
+					if f[j][51:-1].strip(" ") == "1":
+						dic["seism sens"] = f[j+1][51:-1].strip(" ")
+					elif f[j][51:-1].strip(" ") == "3":
+						dic["digi sens"] = f[j+1][51:-1].strip(" ")
+				if f[j][26:45] == "Channel Sensitivity":
+					dic["zeroes"] = zeroes
+					dic["poles"] = poles
+					self.blocks_info.append(dic)
+					break
+
+			if "\n".join(f).find("Channel Sensitivity") == -1:
+				try:
+					print ("\n\tEl archivo RESP %s no contiene el bloque Channel Sensitivity\n")%(self.file_name)
+					dic["zeroes"] = zeroes
+					dic["poles"] = poles
+					self.blocks_info.append(dic)
+				except:
+					return False
 	
 	# devuelve en un diccionario los datos de la ultima actualizacion al
 	# archivo RESP	
@@ -94,7 +95,13 @@ class RespFile:
 		
 		from obspy import UTCDateTime
 		import time 
-		import os 
+		import os
+
+		if (self.sensor != '00' and self.sensor != '10') or self.sensor == -1 :
+			print('Sensor no necesario')
+			return False
+		
+		 
 		try:
 			pz_name = self.station+"B"+self.channel[1:]+".pz"
 		except:

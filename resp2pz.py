@@ -20,7 +20,9 @@ if os.path.isfile(pat_or_file):
 else:
 	
 	for f in os.listdir(pat_or_file):
-		
+
+		if len(f.split('.')) != 5:
+			continue
 		resp = RespFile(pat_or_file+"/"+f)
 		success = resp.resp2pz('/opt/rutinas/Archivos_respuesta/pz_files' + (time.strftime('/%Y/%m/%d')))
 
